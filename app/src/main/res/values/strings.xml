@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WhatsappClone</string>
+    <string name="welcome_text">Welcome to Whatsapp Clone!</string>
+    <string name="login">Login</string>
+    <string name="createacc">Create an account</string>
+    <string name="ImageContentDescription">An image</string>
 </resources>

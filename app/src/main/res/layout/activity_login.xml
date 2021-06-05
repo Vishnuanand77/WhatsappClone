@@ -57,7 +57,8 @@
                 android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                android:autofillHints="@string/email" />
 
             <EditText
                 android:id="@+id/passwordEditText"
@@ -69,14 +70,15 @@
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailIdEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/emailIdEditText"
+                android:autofillHints="@string/password" />
 
             <Button
                 android:id="@+id/loginScreenLoginButton"
                 android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="30dp"
                 android:text="@string/login"
                 android:textColor="@color/elephant_white"
                 app:layout_constraintBottom_toBottomOf="parent"

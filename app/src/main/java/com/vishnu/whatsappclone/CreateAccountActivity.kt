@@ -57,50 +57,52 @@ class CreateAccountActivity : AppCompatActivity() {
 
     //Function to create a new account
     private fun createAccount(username: String, email: String, password: String) {
-//        mAuth!!.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
-//            task ->
-//                if (task.isSuccessful) {
-//                    Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
-////                    var currentUser = mAuth!!.currentUser
-////                    var userId = currentUser!!.uid
-////
-////                    mDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
-////
-////                    var userObject = HashMap<String, String>()
-////                    userObject.put("username", username)
-////                    userObject.put("status", "Hello There")
-////                    userObject.put("image", "default")
-////                    userObject.put("thumbnail", "default")
-////
-////                    mDatabase!!.setValue(userObject).addOnCompleteListener {
-////                        task: Task<Void> ->
-////                            if (task.isSuccessful) {
-////                                Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
-////                            } else {
-////                                Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
-////                            }
-////                    }
-//
-//                } else {
-//                    Log.d("Firebase Auth Error ", task.toString())
-//                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
-//                }
-//        }
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
+        mAuth!!.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
+            task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
+                    Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
+                    var currentUser = mAuth!!.currentUser
+                    var userId = currentUser!!.uid
+
+                    mDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
+
+                    var userObject = HashMap<String, String>()
+                    userObject.put("username", username)
+                    userObject.put("status", "Hello There")
+                    userObject.put("image", "default")
+                    userObject.put("thumbnail", "default")
+
+                    mDatabase!!.setValue(userObject).addOnCompleteListener {
+                        task: Task<Void> ->
+                            if (task.isSuccessful) {
+                                Log.d("Firebase Database: success ", "DB entry successful")
+                                Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Log.d("Firebase Database: failure ", task.exception.toString())
+                                Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
+                            }
+                    }
 
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-
+                    Log.d("Firebase Auth Error ", task.exception.toString())
+                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
-            }
+        }
+
+//        auth.createUserWithEmailAndPassword(email, password)
+//            .addOnCompleteListener(this) { task ->
+//                if (task.isSuccessful) {
+//                    // Sign in success, update UI with the signed-in user's information
+//                    Log.d(TAG, "createUserWithEmail:success")
+//                    val user = auth.currentUser
+//
+//                } else {
+//                    // If sign in fails, display a message to the user.
+//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+//                    Toast.makeText(baseContext, "Authentication failed.",
+//                        Toast.LENGTH_SHORT).show()
+//
+//                }
+//            }
     }
 }

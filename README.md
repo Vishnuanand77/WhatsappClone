@@ -8,3 +8,4 @@ Works with firebase.
 1. Add custom animation to switch between home screen and login / Create account screen
 2. Add masthead in the home screen
 3. Add a splash screen
+4. Add a loading spinner when switching from create a new user to dashboard screen

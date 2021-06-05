@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <EditText
-                android:id="@+id/usernameEditText"
+                android:id="@+id/CA_usernameEditText"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -62,7 +62,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <EditText
-                android:id="@+id/SignUpemailIdEditText"
+                android:id="@+id/CA_SignUpemailIdEditText"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -71,10 +71,10 @@
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/CA_usernameEditText" />
 
             <EditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/CA_passwordEditText"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -83,21 +83,21 @@
                 android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/SignUpemailIdEditText"
+                app:layout_constraintTop_toBottomOf="@+id/CA_SignUpemailIdEditText"
                 android:autofillHints="@string/password" />
 
             <Button
-                android:id="@+id/loginScreenLoginButton"
-                android:layout_width="200dp"
+                android:id="@+id/CA_createAccountButton"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
-                android:text="@string/login"
+                android:text="@string/create_a_new_account"
                 android:textColor="@color/elephant_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/CA_passwordEditText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

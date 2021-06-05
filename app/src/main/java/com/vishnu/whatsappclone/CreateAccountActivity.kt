@@ -21,6 +21,6 @@ class CreateAccountActivity : AppCompatActivity() {
 
     //Function to create a new account
     fun createAccount(email: String, password: String, displayName: String) {
-        
+
     }
 }

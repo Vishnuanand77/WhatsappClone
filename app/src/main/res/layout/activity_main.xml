@@ -62,14 +62,16 @@
                 android:id="@+id/createAccountButton"
                 android:layout_width="230dp"
                 android:layout_height="44dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:text="@string/createacc"
                 android:textColor="@color/elephant_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+                app:layout_constraintTop_toBottomOf="@+id/loginButton"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

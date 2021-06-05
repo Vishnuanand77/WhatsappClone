@@ -4,4 +4,7 @@
     <string name="login">Login</string>
     <string name="createacc">Create an account</string>
     <string name="ImageContentDescription">An image</string>
+    <string name="login_to_whatsapp_clone">Login to Whatsapp clone</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
 </resources>

@@ -19,12 +19,9 @@ import kotlinx.android.synthetic.main.activity_create_account.*
 
 class CreateAccountActivity : AppCompatActivity() {
 
-    //Variable Instantiations
-    var mAuth: FirebaseAuth? = null
-    var mDatabase: DatabaseReference? = null
-
-    private lateinit var auth: FirebaseAuth
-
+    //Firebase Variable Instantiations
+    private var mAuth: FirebaseAuth? = null
+    private var mDatabase: DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +30,12 @@ class CreateAccountActivity : AppCompatActivity() {
         //Getting firebase instance
         mAuth = FirebaseAuth.getInstance()
 
-        // Initialize Firebase Auth
-        auth = Firebase.auth
-
         //Create Account button listener
         CA_createAccountButton.setOnClickListener {
             //Getting User Input
-            var username = CA_usernameEditText.text.toString()
-            var email = CA_SignUpemailIdEditText.text.toString().trim()
-            var password = CA_passwordEditText.text.toString().trim()
+            val username = CA_usernameEditText.text.toString()
+            val email = CA_SignUpemailIdEditText.text.toString().trim()
+            val password = CA_passwordEditText.text.toString().trim()
 
             //Validating null input. Move to authentication only if text input is not empty
             if (!TextUtils.isEmpty(username) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)) {
@@ -52,26 +46,27 @@ class CreateAccountActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     //Function to create a new account
     private fun createAccount(username: String, email: String, password: String) {
+        //Signing users up with email and password
         mAuth!!.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
             task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
-                    var currentUser = mAuth!!.currentUser
-                    var userId = currentUser!!.uid
+                    val currentUser = mAuth!!.currentUser
+                    val userId = currentUser!!.uid
 
+                    //Firebase Database instance
                     mDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
 
-                    var userObject = HashMap<String, String>()
-                    userObject.put("username", username)
-                    userObject.put("status", "Hello There")
-                    userObject.put("image", "default")
-                    userObject.put("thumbnail", "default")
+                    //A simple hashmap of a user
+                    val userObject = HashMap<String, String>()
+                    userObject["username"] = username
+                    userObject["status"] = "Hello There"
+                    userObject["image"] = "default"
+                    userObject["thumbnail"] = "default"
 
+                    //Checking if the data was added to the database or not
                     mDatabase!!.setValue(userObject).addOnCompleteListener {
                         task: Task<Void> ->
                             if (task.isSuccessful) {
@@ -82,27 +77,10 @@ class CreateAccountActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Database failed", Toast.LENGTH_SHORT).show()
                             }
                     }
-
                 } else {
                     Log.d("Firebase Auth Error ", task.exception.toString())
                     Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
                 }
         }
-
-//        auth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d(TAG, "createUserWithEmail:success")
-//                    val user = auth.currentUser
-//
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-//                    Toast.makeText(baseContext, "Authentication failed.",
-//                        Toast.LENGTH_SHORT).show()
-//
-//                }
-//            }
     }
 }

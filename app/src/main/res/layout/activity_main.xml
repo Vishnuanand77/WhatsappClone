@@ -51,9 +51,9 @@
 
             <Button
                 android:id="@+id/loginButton"
-                android:layout_width="230dp"
+                android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/login"
                 android:textColor="@color/elephant_white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
 
             <Button
                 android:id="@+id/createAccountButton"
-                android:layout_width="230dp"
+                android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"

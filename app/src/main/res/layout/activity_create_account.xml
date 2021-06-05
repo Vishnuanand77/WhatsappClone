@@ -74,7 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/CA_usernameEditText" />
 
             <EditText
-                android:id="@+id/CA_passwordEditText"
+                android:id="@+id/loginScreenPasswordEditText"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -97,7 +97,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CA_passwordEditText" />
+                app:layout_constraintTop_toBottomOf="@+id/loginScreenPasswordEditText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

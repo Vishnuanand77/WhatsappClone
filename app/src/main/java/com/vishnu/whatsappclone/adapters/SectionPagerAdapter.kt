@@ -16,13 +16,18 @@ class SectionPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     //Override method to get a particular fragment
     override fun getItem(position: Int): Fragment {
         when (position) {
-            0 -> {
-                return UsersFragment()
-            }
-            1 -> {
-                return ChatFragment()
-            }
+            0 -> {return UsersFragment()}
+            1 -> {return ChatFragment()}
         }
+        return null!!
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        when (position) {
+            0 -> return "Contacts"
+            1 -> return "Chats"
+        }
+
         return null!!
     }
 

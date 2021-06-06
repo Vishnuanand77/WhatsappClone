@@ -11,3 +11,4 @@ Works with firebase.
 4. Add a loading spinner when switching from create a new user to dashboard screen
 5. Add icons to appbar menu items in menu.xml
 6. Add back button in SettingsActivity page
+7. Implement a bottom modal sheet to change status

@@ -14,6 +14,7 @@ class DashboardActivity : AppCompatActivity() {
 
         //Setting the app bar title
         supportActionBar!!.title = "Dashboard"
+        supportActionBar!!.elevation = 0F
 
         //Tab View and ViewPager configurations
         sectionPagerAdapter = SectionPagerAdapter(supportFragmentManager)

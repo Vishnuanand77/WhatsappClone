@@ -47,7 +47,7 @@ class SettingsActivity : AppCompatActivity() {
 
         //OnClick Listener
         settings_changeStatusButton.setOnClickListener {
-            var intent = Intent(this, ChangeStatusActivity::class.java)
+            val intent = Intent(this, ChangeStatusActivity::class.java)
             intent.putExtra("status", settings_StatusDisplay.text.toString().trim())
             startActivity(intent)
         }

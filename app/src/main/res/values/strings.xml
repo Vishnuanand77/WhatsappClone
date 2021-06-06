@@ -14,4 +14,7 @@
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
     <string name="change_status">Change Status</string>
+    <string name="default_status_display">Hey there! I am using Whatsapp Clon</string>
+    <string name="change_profile_picture">Change Profile Picture</string>
+    <string name="display_username">Display Username</string>
 </resources>

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto"
-        android:text="Your Current Status"
+        android:text="@string/your_current_status"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,11 +32,11 @@
 
     <TextView
         android:id="@+id/changeStatus_StatusDisplay"
-        android:layout_width="361dp"
-        android:layout_height="48dp"
+        android:layout_width="368dp"
+        android:layout_height="136dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
-        android:text="Current Status Display"
+        android:text="@string/current_status_display"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         android:layout_height="54dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Pick a new status"
+        android:hint="@string/pick_a_new_status"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.528"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/changeStatus_StatusDisplay" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/changeStatusButton"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_marginTop="80dp"

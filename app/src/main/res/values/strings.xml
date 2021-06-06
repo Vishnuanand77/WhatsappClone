@@ -17,4 +17,7 @@
     <string name="default_status_display">Hey there! I am using Whatsapp Clon</string>
     <string name="change_profile_picture">Change Profile Picture</string>
     <string name="display_username">Display Username</string>
+    <string name="pick_a_new_status">Pick a new status</string>
+    <string name="current_status_display">Current Status Display</string>
+    <string name="your_current_status">Your Current Status</string>
 </resources>

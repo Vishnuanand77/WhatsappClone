@@ -18,6 +18,9 @@ class SettingsActivity : AppCompatActivity() {
     var mCurrentUser: FirebaseUser? =null
     var mStorageReference: StorageReference? = null
 
+    //Image variables
+    var GALLERY_ID: Int = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -51,5 +54,17 @@ class SettingsActivity : AppCompatActivity() {
             intent.putExtra("status", settings_StatusDisplay.text.toString().trim())
             startActivity(intent)
         }
+
+        //Image click listener
+        settings_profileImage.setOnClickListener {
+            val galleryIntent = Intent()
+            galleryIntent.type = "image/*"
+            galleryIntent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(galleryIntent,"SELECT_IMAGE"), GALLERY_ID)
+        }
+    }
+    //This is called once we return from the gallery
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

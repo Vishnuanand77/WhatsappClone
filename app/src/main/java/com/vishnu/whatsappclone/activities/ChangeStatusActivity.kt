@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_change_status.*
 class ChangeStatusActivity : AppCompatActivity() {
 
     //Firebase Variables
-    var mDatabase: DatabaseReference? = null
-    var mCurrentUser: FirebaseUser? = null
+    private var mDatabase: DatabaseReference? = null
+    private var mCurrentUser: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

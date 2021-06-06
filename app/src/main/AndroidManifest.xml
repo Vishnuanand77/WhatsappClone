@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsappClone">
-        <activity android:name=".activities.ChangeStatusActivity"/>
+        <activity android:name=".activities.ChangeStatusActivity"
+            android:parentActivityName=".activities.SettingsActivity"/>
         <activity android:name=".activities.SettingsActivity"
             android:parentActivityName=".activities.DashboardActivity"
             android:label="Profile"/>

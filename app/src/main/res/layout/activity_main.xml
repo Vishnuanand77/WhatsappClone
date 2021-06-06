@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:background="@drawable/whatsapp_default_bg"
     android:foregroundGravity="center"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="309dp"

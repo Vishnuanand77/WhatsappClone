@@ -9,3 +9,4 @@ Works with firebase.
 2. Add masthead in the home screen
 3. Add a splash screen
 4. Add a loading spinner when switching from create a new user to dashboard screen
+5. Add icons to appbar menu items in menu.xml

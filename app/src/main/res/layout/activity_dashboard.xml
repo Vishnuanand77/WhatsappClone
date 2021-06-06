@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/whatsapp_default_bg"
+    android:background="@color/elephant_white"
     tools:context=".activities.DashboardActivity">
 
     <com.google.android.material.tabs.TabLayout
@@ -14,17 +14,6 @@
         android:background="@color/teal_green"
         app:tabIndicatorColor="#FFFFFF"
         app:tabTextColor="@color/white">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="Monday" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tuesday" />
 
     </com.google.android.material.tabs.TabLayout>
 

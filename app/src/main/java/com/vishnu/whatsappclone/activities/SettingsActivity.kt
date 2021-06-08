@@ -1,9 +1,14 @@
 package com.vishnu.whatsappclone.activities
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -21,9 +26,15 @@ class SettingsActivity : AppCompatActivity() {
     //Image variables
     var GALLERY_ID: Int = 1
 
+    //New Method
+//    private val pickImage = 100
+//    private var imageUri: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        //Image Cropper
 
         //Instantiating Firebase variables
         mCurrentUser = FirebaseAuth.getInstance().currentUser
@@ -57,14 +68,35 @@ class SettingsActivity : AppCompatActivity() {
 
         //Image click listener
         settings_profileImage.setOnClickListener {
+            //New Method
+//            val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+//            startActivityForResult(galleryIntent, pickImage)
+
+            //Course Method
             val galleryIntent = Intent()
             galleryIntent.type = "image/*"
             galleryIntent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(galleryIntent,"SELECT_IMAGE"), GALLERY_ID)
+            startActivityForResult(Intent.createChooser(galleryIntent, "SELECT_IMAGE"), GALLERY_ID)
         }
     }
-    //This is called once we return from the gallery
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        //New Method
+//        if (resultCode == RESULT_OK && requestCode == pickImage) {
+//            imageUri = data?.data
+//            settings_profileImage.setImageURI(imageUri)
+//        }
+
+        //Course Method
+        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_ID) {
+            var imageUri: Uri? = data!!.data
+
+            //Crop Image
+
+
+        }
     }
+
 }
+

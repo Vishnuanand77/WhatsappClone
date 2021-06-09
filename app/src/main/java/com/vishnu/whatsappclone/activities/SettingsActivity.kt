@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.vishnu.whatsappclone.R
 import id.zelory.compressor.Compressor
@@ -59,13 +61,23 @@ class SettingsActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //Gets a snapshot of the entries against the userId
                 var username = dataSnapshot.child("username").value
-                var image = dataSnapshot.child("image").value
+                var image = dataSnapshot.child("image").value.toString()
                 var status = dataSnapshot.child("status").value
                 var userThumbnail = dataSnapshot.child("thumbnail").value
 
                 //Setting the UI to what we retrieved from the database
                 settings_usernameDisplay.text = username.toString()
                 settings_StatusDisplay.text = status.toString()
+
+                if (image != "default") {
+                    mStorageReference!!.child("chat_profile_image")
+                        .child(mCurrentUser!!.uid+".jpg").downloadUrl.addOnCompleteListener {
+                            Picasso.get()
+                                .load(image)
+                                .placeholder(R.drawable.profile_logo)
+                                .into(settings_profileImage)
+                        }
+                }
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 //Records errors with respect to database

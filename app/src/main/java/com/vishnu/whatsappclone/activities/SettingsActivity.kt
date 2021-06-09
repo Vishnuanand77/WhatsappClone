@@ -3,19 +3,25 @@ package com.vishnu.whatsappclone.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import com.theartofdev.edmodo.cropper.CropImage
 import com.vishnu.whatsappclone.R
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Exception
 
@@ -101,8 +107,60 @@ class SettingsActivity : AppCompatActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
                 val resultUri = result.uri
-                var  userId = mCurrentUser!!.uid
                 var thumbnail = File(resultUri.path)
+
+                var thumbBitmap = Compressor(this)
+                    .setMaxWidth(200)
+                    .setMaxHeight(200)
+                    .setQuality(70)
+                    .compressToBitmap(thumbnail)
+
+                //Upload image to firebase
+                var  userId = mCurrentUser!!.uid
+
+                var byteArray = ByteArrayOutputStream()
+                thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray)
+                var thumbByteArray: ByteArray
+                thumbByteArray = byteArray.toByteArray()
+
+                var filePath = mStorageReference!!.child("user_profile_images").child("$userId.jpg")
+
+                //Creating another directory for smaller compressed images
+                var compressedFilePath = mStorageReference!!.child("user_profile_images")
+                    .child("thumbnails")
+                    .child("$userId.jpg")
+
+                filePath.putFile(resultUri).addOnCompleteListener {
+                    task: Task<UploadTask.TaskSnapshot> ->
+                    if (task.isSuccessful) {
+                        //Get the image url
+                        var downloadUrl = filePath.downloadUrl.toString()
+
+                        //Upload task
+                        var uploadTask: UploadTask = filePath.putBytes(thumbByteArray)
+                        uploadTask.addOnCompleteListener {
+                            task : Task<UploadTask.TaskSnapshot> ->
+                            var thumbUrl = filePath.downloadUrl.toString()
+                            if (task.isSuccessful) {
+                                var updateObject = HashMap<String, Any>()
+                                updateObject["image"] = downloadUrl
+                                updateObject["thumb_image"] = thumbUrl
+                                
+                                //Save profile image
+                                mDatabase!!.updateChildren(updateObject).addOnCompleteListener { 
+                                    task: Task<Void> -> 
+                                    if (task.isSuccessful) {
+                                        Toast.makeText(this, "Profile Image Updated", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Log.d("Database Error", task.exception.toString())
+                                    }
+                                }
+                            } else {
+                                Log.d("Database Error", task.exception.toString())
+                            }
+                        }
+                    }
+                }
             }
         }
 

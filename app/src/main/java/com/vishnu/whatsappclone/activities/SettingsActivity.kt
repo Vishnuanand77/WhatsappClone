@@ -75,15 +75,22 @@ class SettingsActivity : AppCompatActivity() {
                 settings_StatusDisplay.text = status.toString()
 
                 //Retrieve image
-
+                val progressDialog = ProgressDialog(this@SettingsActivity)
+                progressDialog.setMessage("Fetching image")
+                progressDialog.setCancelable(false)
+                progressDialog.show()
                 val userImageRef = FirebaseStorage.getInstance().reference
                     .child("user_profile_images/${mCurrentUser!!.uid}.jpg")
 
                 val localFile = File.createTempFile("tempImage", "jpg")
                 userImageRef.getFile(localFile).addOnSuccessListener {
+                    if (progressDialog.isShowing) progressDialog.dismiss()
                     val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                     settings_profileImage.setImageBitmap(bitmap)
                 }. addOnFailureListener {
+                    if (progressDialog.isShowing) progressDialog.dismiss()
+                    settings_profileImage.setImageResource(R.drawable.profile_logo)
+                    Toast.makeText(this@SettingsActivity, "Image Retrieval Failed", Toast.LENGTH_SHORT).show()
                     Log.d("Firebase Storage", "Could not get image")
                 }
 

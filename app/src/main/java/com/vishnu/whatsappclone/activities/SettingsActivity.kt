@@ -1,9 +1,11 @@
 package com.vishnu.whatsappclone.activities
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +14,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -62,6 +66,7 @@ class SettingsActivity : AppCompatActivity() {
                 //Gets a snapshot of the entries against the userId
                 var username = dataSnapshot.child("username").value
                 var image = dataSnapshot.child("image").value.toString()
+                Log.d("Firebase Data Store", image.toString())
                 var status = dataSnapshot.child("status").value
                 var userThumbnail = dataSnapshot.child("thumbnail").value
 
@@ -69,15 +74,30 @@ class SettingsActivity : AppCompatActivity() {
                 settings_usernameDisplay.text = username.toString()
                 settings_StatusDisplay.text = status.toString()
 
-                if (image != "default") {
-                    mStorageReference!!.child("chat_profile_image")
-                        .child(mCurrentUser!!.uid+".jpg").downloadUrl.addOnCompleteListener {
-                            Picasso.get()
-                                .load(image)
-                                .placeholder(R.drawable.profile_logo)
-                                .into(settings_profileImage)
-                        }
+                //Retrieve image
+
+                val userImageRef = FirebaseStorage.getInstance().reference
+                    .child("user_profile_images/${mCurrentUser!!.uid}.jpg")
+
+                val localFile = File.createTempFile("tempImage", "jpg")
+                userImageRef.getFile(localFile).addOnSuccessListener {
+                    val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                    settings_profileImage.setImageBitmap(bitmap)
+                }. addOnFailureListener {
+                    Log.d("Firebase Storage", "Could not get image")
                 }
+
+//                Glide.with(this@SettingsActivity)
+//                    .load(userImageRef)
+//                    .into(settings_profileImage)
+
+
+//                if (image != "default") {
+//                    Picasso.get()
+//                        .load(image)
+//                        .placeholder(R.drawable.profile_logo)
+//                        .into(settings_profileImage)
+//                }
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 //Records errors with respect to database

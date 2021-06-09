@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import com.theartofdev.edmodo.cropper.CropImage
@@ -47,11 +48,10 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        //Image Cropper
-
-
         //Instantiating Firebase variables
         mCurrentUser = FirebaseAuth.getInstance().currentUser
+        mStorageReference = FirebaseStorage.getInstance().reference
+
         val userId = mCurrentUser!!.uid
 
         mDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(userId)

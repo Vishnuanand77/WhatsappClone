@@ -1,20 +1,23 @@
 package com.vishnu.whatsappclone.activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.storage.StorageReference
+import com.theartofdev.edmodo.cropper.CropImage
 import com.vishnu.whatsappclone.R
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.io.File
+import java.lang.Exception
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -28,13 +31,18 @@ class SettingsActivity : AppCompatActivity() {
 
     //New Method
 //    private val pickImage = 100
-//    private var imageUri: Uri? = null
+    private var imageUri: Uri? = null
+
+    private val SAMPLE_CROPPED_IMAGE_NAME : String = "SampleCropImg"
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
         //Image Cropper
+
 
         //Instantiating Firebase variables
         mCurrentUser = FirebaseAuth.getInstance().currentUser
@@ -68,34 +76,36 @@ class SettingsActivity : AppCompatActivity() {
 
         //Image click listener
         settings_profileImage.setOnClickListener {
-            //New Method
-//            val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-//            startActivityForResult(galleryIntent, pickImage)
-
+            Log.d("settings_profileImage.setOnClickListener ", "Method Entered")
             //Course Method
             val galleryIntent = Intent()
             galleryIntent.type = "image/*"
             galleryIntent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(Intent.createChooser(galleryIntent, "SELECT_IMAGE"), GALLERY_ID)
+
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //New Method
-//        if (resultCode == RESULT_OK && requestCode == pickImage) {
-//            imageUri = data?.data
-//            settings_profileImage.setImageURI(imageUri)
-//        }
 
-        //Course Method
-        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_ID) {
-            var imageUri: Uri? = data!!.data
+        if (requestCode == GALLERY_ID && resultCode == RESULT_OK) {
+            var imageUri: Uri = data!!.data!!
 
-            //Crop Image
-
-
+            CropImage.activity(imageUri)
+                .setAspectRatio(1,1)
+                .start(this)
         }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+
+            if (resultCode == Activity.RESULT_OK) {
+                val resultUri = result.uri
+                var  userId = mCurrentUser!!.uid
+                var thumbnail = File(resultUri.path)
+            }
+        }
+
     }
 
 }

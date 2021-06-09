@@ -112,12 +112,11 @@ class SettingsActivity : AppCompatActivity() {
                 var thumbBitmap = Compressor(this)
                     .setMaxWidth(200)
                     .setMaxHeight(200)
-                    .setQuality(70)
+                    .setQuality(60)
                     .compressToBitmap(thumbnail)
 
                 //Upload image to firebase
                 var  userId = mCurrentUser!!.uid
-
                 var byteArray = ByteArrayOutputStream()
                 thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArray)
                 var thumbByteArray: ByteArray
@@ -126,9 +125,7 @@ class SettingsActivity : AppCompatActivity() {
                 var filePath = mStorageReference!!.child("user_profile_images").child("$userId.jpg")
 
                 //Creating another directory for smaller compressed images
-                var compressedFilePath = mStorageReference!!.child("user_profile_images")
-                    .child("thumbnails")
-                    .child("$userId.jpg")
+                var thumbFilePath = mStorageReference!!.child("user_profile_images").child("thumbnails").child("$userId.jpg")
 
                 filePath.putFile(resultUri).addOnCompleteListener {
                     task: Task<UploadTask.TaskSnapshot> ->
@@ -137,10 +134,10 @@ class SettingsActivity : AppCompatActivity() {
                         var downloadUrl = filePath.downloadUrl.toString()
 
                         //Upload task
-                        var uploadTask: UploadTask = filePath.putBytes(thumbByteArray)
+                        var uploadTask: UploadTask = thumbFilePath.putBytes(thumbByteArray)
                         uploadTask.addOnCompleteListener {
                             task : Task<UploadTask.TaskSnapshot> ->
-                            var thumbUrl = filePath.downloadUrl.toString()
+                            var thumbUrl = thumbFilePath.downloadUrl.toString()
                             if (task.isSuccessful) {
                                 var updateObject = HashMap<String, Any>()
                                 updateObject["image"] = downloadUrl
@@ -162,7 +159,9 @@ class SettingsActivity : AppCompatActivity() {
                     }
                 }
             }
+
         }
+
 
     }
 
